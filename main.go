@@ -52,10 +52,11 @@ func onRaw(event *events.Raw) {
 	var payload ReactionPayload
 	err := json.NewDecoder(event.Payload).Decode(&payload)
 	if err != nil {
-		log.Error("there was an error while decoding the payload:", err)
+		log.Error("there was an error while decoding the payload: ", err)
 		return
 	}
 	if payload.Burst {
+		log.Info(payload)
 		err := event.Client().Rest().RemoveUserReaction(payload.ChannelID, payload.MessageID, payload.Emoji.Reaction(), payload.UserID)
 		if err != nil {
 			log.Error("there was an error while removing a burst reaction: ", err)
