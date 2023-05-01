@@ -1,4 +1,4 @@
-module terrible_reactions
+module terrible-reactions
 
 go 1.20
 
