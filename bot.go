@@ -55,7 +55,8 @@ func onRaw(event *events.Raw) {
 		return
 	}
 	if payload.Burst {
-		if err := event.Client().Rest().RemoveUserReaction(payload.ChannelID, payload.MessageID, payload.Emoji.Reaction(), payload.UserID); err != nil {
+		rest := event.Client().Rest()
+		if err := rest.RemoveUserReaction(payload.ChannelID, payload.MessageID, payload.Emoji.Reaction(), payload.UserID); err != nil {
 			log.Error("there was an error while removing a burst reaction: ", err)
 		}
 	}
