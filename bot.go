@@ -23,7 +23,7 @@ func main() {
 			gateway.WithPresenceOpts(gateway.WithWatchingActivity("super reactions"))),
 		bot.WithCacheConfigOpts(cache.WithCaches(cache.FlagsNone)),
 		bot.WithEventListeners(&events.ListenerAdapter{
-			OnMessageReactionAdd: func(event *events.MessageReactionAdd) {
+			OnGuildMessageReactionAdd: func(event *events.GuildMessageReactionAdd) {
 				if event.Burst {
 					rest := event.Client().Rest()
 					if err := rest.RemoveUserReaction(event.ChannelID, event.MessageID, event.Emoji.Reaction(), event.UserID); err != nil {
