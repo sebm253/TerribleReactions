@@ -24,11 +24,12 @@ func main() {
 		bot.WithCacheConfigOpts(cache.WithCaches(cache.FlagsNone)),
 		bot.WithEventListeners(&events.ListenerAdapter{
 			OnGuildMessageReactionAdd: func(event *events.GuildMessageReactionAdd) {
-				if event.Burst {
-					rest := event.Client().Rest()
-					if err := rest.RemoveUserReaction(event.ChannelID, event.MessageID, event.Emoji.Reaction(), event.UserID); err != nil {
-						log.Error("there was an error while removing a burst reaction: ", err)
-					}
+				if !event.Burst {
+					return
+				}
+				rest := event.Client().Rest()
+				if err := rest.RemoveAllReactionsForEmoji(event.ChannelID, event.MessageID, event.Emoji.Reaction()); err != nil {
+					log.Error("there was an error while removing a burst reaction: ", err)
 				}
 			},
 		}))
