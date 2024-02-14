@@ -3,7 +3,7 @@ module terrible-reactions
 go 1.21
 
 require (
-	github.com/disgoorg/disgo v0.17.1
+	github.com/disgoorg/disgo v0.17.2
 	github.com/disgoorg/log v1.2.1
 )
 
